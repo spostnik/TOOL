@@ -1,0 +1,7 @@
+zip -9 -r ns NS/
+zip -9 -r map MAP/
+zip -9 -r bnd BND/
+zip -9 -r lov LOV/
+zip -9 -r mom MOM/
+zip -9 -r max MAX/
+zip -9 -r usr USR/

@@ -1,0 +1,77 @@
+&init
+ withMPI=T,
+ lnPmin=-1.0E+5,
+ refden=0.08,
+ xseed=-8,
+ xMax=7,
+ linkdots=10,
+ Love=T,
+ MomI=T,
+ nDen=T,
+ BE=T,
+ MomQ=F
+/
+&Mchain
+ CRUSTknots=5,
+ COREknots=5,
+ MINknot=2,
+ linkpoints=50,
+ djump=0.5,
+ cut=4,
+ stepMax=30000,
+ restart=F,
+ step=0
+/
+&maps
+ Nx=100,
+ xL=-8,
+ xR=7,
+ Ny=100,
+ yD=1,
+ yU=8,
+ NM=100,
+ ML=0.0,
+ MR=3.0,
+ NR=100,
+ RU=25,
+ RD=0,
+ NLove=100,
+ LoveL=0,
+ LoveR=10.0D+4,
+ Ntrn=100,
+ trnL=0.1,
+ trnR=2.0,
+ Nfrc=100,
+ frcD=0,
+ frcU=0.2,
+ NusrX=100,
+ usrXL=0,
+ usrXR=5,
+ NusrY=200,
+ usrYD=0,
+ usrYU=1
+/
+&input
+ fileEOS='SYN0.dat',
+ dotsEOS=172,
+ units=2
+/
+&output
+ writeevery=100,
+ writeNS=100
+/
+&Odata
+ MmaxNS=1.8,
+ M1maxNS=1.97,sM1maxNS=0.04,
+ M2maxNS=2.01,sM2maxNS=0.04,
+ M3maxNS=2.44,sM3maxNS=0.27,
+ RsNS=9.1,sRsNS=1.5, MmnNS=0.3,
+ M1=0,sM1=0.09,R1=0,sR1=0.8,
+ R1inf=14.6,sR1inf=1,
+ R2inf=16.1,sR2inf=1.8,z2=0.37,sz2=0.03,
+ LoveLimit=10.0D+5, Mlimit=0.5, Rlimit=20.0
+/
+&Ndata
+ NucPh=T,
+ fileEDF='UNEDFnb_10k.map'
+/

@@ -1,0 +1,55 @@
+TOOL
+
+Tolman-Oppenheimer-Volkov
+Observations
+OpenMP/MPI
+Liaison
+
+ABOUT
+
+Fortran 90 OpenMP & MPI code to calculate Equation of State
+of dense nuclear matter in Neutron Stars from Astronomical and Nuclear data.
+Uses normal TOV equations, causality of adiabatic speed of sound and
+stability against collapse into Black Hole.
+
+Bayesian analysis and Markov chains are used.
+
+Moreover it computes stellar binding energy, central number density,
+tidal Love number and moment of inertia (including fraction in crust).
+
+SETUP
+
+Source files are located in src/ directory.
+They can be compiled by compile.* files into
+executables in main directory. See also
+manulal.inf in doc/ for more details and instructions.
+Briefly
+
+src/ has Fortran 90 source files of the code.
+
+doc/ has documentation and manual. Read it next.
+
+DAT/ contains input data from observations and experiments,
+as well as the theory.
+
+my_prj/ has an example of project and using the code.
+
+init/ has a few useful scripts.
+
+run/ has examples of job submission on HPC machine Big Red II via TORQUE scripts.
+
+knobs is a file needed to run calculations is project directory.
+
+compile.* bash scripts to compile source code in defferent modes.
+
+Read manual.inf in doc/ next.
+
+FEEDBACK
+
+ Please write comments, questions and suggestions to:
+ 
+  postsergey@gmail.com
+
+ENJOY!
+
+ Sergey Postnikov

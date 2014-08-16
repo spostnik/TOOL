@@ -1,0 +1,81 @@
+07/17/2014
+Version A
+
+ MINknot is added to knobs. Only knots>=MINknot are allowed to jump, others are frozen.
+
+07/21/2014
+Version B
+
+ Love number calculation is added. File knobs updated. Now if Love=T then Love 
+ number lambda is calculated and added as 5th
+ column in output files in NS/. Units for Love number lambda are [km^5].
+ 
+ In main.f90 bug is fixed. Code lines are added to read knobs for Odata and Ndata from knobs file.
+ 
+ Added LoveLimit and Mlimit for Love number.
+ Stars with masses above Mlimit are checked to be below LoveLimit [km^5].
+ 
+ Bug due to LOG(0) into NaN is fixed in analysis.f90.
+ Bug is fixed in chain.f90 where grid was changed into Lgrid in SUBROUTINE updateLOVE.
+ 
+ OMP's ATOMIC anf CRITICAL are added to random knot jump in markov.f90 to avoid crashes of the code.
+ 
+07/24/2014
+
+ Added discription of output in section RESULTS of the manual.
+ 
+07/25/2014
+VERSION C
+
+ Nuclear physics input from Energy Density Functional is supplied.
+ Added UNEDF1.map input data file into DAT/. Also parameter 'fileEDF' in knobs file.
+ Now probability of this EDF EOS band matching is multipied to the current one.
+ 
+08/05/2014
+VERSION D
+
+ Calculation of moment of inertia is added.
+ 
+08/08/2014
+ OMP implemented in accumulation of probability on input EDF in analysis.f90.
+ Typo is fixed in analysis.f90, from MM-R1 into RR-R1.
+ Maximum probability case is detected and saved, as well as print in output.
+ Added number density calculations.
+ 
+08/09/2014
+ Changed to output chain probability into file in NS/ rather than global maximum.
+ 
+08/10/2014
+ Added MmaxNS - maximum mass to be reached by EOS, otherwize probability is zeroed.
+ Configurations with maximum mass are saved into MAX/.
+ 
+VERSION E
+ Fixed calculation of number densities. Now no mapping beyond maximum mass.
+ 
+08/11/2014
+ Added calculation of the binding energy.
+ Changed TOV integrator.
+
+08/12/2014
+ Fixed input EOS units=0 from km^-2 to M_Sun*km^-3. It caused larger radii for AP4, PAL32, etc.
+ If input 'Odata' is zeroed then they are ignored, analysis.f90 is changed.
+
+08/13/2014
+VERSION F
+ Fixed DEALLOCATE bug.
+ Fixed integration of parameters for the case of bare SQM star up to surface.
+ Added option step0, initial step index, as well as lnPall0, for runs with input maps.
+ Added knobs add*** to use maps from files as input and inital setup. Restarts.
+
+VERSION G
+ Added glitches to be used in input Odata and in analysis.
+ 
+08/14/2014
+ Added restarting with more proc than files present, add*** are updated in main.f90.
+ 
+08/15/2014
+VERSION H
+ Moved *.f90 to src/ directory and added README in main directory.
+ Fixed path in compilation files accordingly.
+ Chainged 'ok' column in 'log.dat' back to 'ok' variable.
+ Added BE to MAX/ output.

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+cd src
+
+ftn -O3 -c params.f90
+
+cp parallel.f90 parallel.f90.bkp
+rm parallel.f90
+cp serial.f90 parallel.f90
+
+ftn -O3 -c parallel.f90
+rm parallel.f90
+cp parallel.f90.bkp parallel.f90
+
+ftn -O3 -c data.f90
+
+ftn -O3 -c user.f90
+
+ftn -O3 -c chain.f90
+ftn -O3 -c solver.f90
+
+ftn -O3 -c analysis.f90
+ftn -O3 -c markov.f90
+
+ftn -O3 -c main.f90
+
+ftn -O3 -o main.noMPI.cray.exe params.o parallel.o data.o user.o chain.o solver.o analysis.o markov.o main.o
+
+cp main.noMPI.cray.exe ../
+rm *.o
+rm *.mod
+rm *.exe
+cd ..

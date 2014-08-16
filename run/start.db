@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#runs main code main.cray.exe
+qsub ./mpi.cpu.db

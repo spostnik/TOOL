@@ -1,0 +1,6 @@
+#runs main OMP or serial code on local host
+# for GNU
+time ./main.noMPI.gnu.exe > output
+
+#for Cray
+#time ./main.noMPI.cray.exe > output

@@ -1,0 +1,59 @@
+#!/bin/bash
+
+echo "going into src/"
+cd src
+
+echo "compiling params"
+gfortran -c -O3 -fopenmp params.f90
+echo "done"
+
+echo "making copy of parallel.f90"
+cp parallel.f90 parallel.f90.bkp
+echo "deleting it and replacing with serial.f90"
+rm parallel.f90
+cp serial.f90 parallel.f90
+echo "done"
+
+echo "compiling parallel"
+gfortran -c -O3 -fopenmp parallel.f90
+echo "deleting and copying back parallel.f90"
+rm parallel.f90
+cp parallel.f90.bkp parallel.f90
+echo "done"
+
+echo "compiling data"
+gfortran -c -O3 -fopenmp data.f90
+echo "done"
+echo "compiling user"
+gfortran -c -O3 -fopenmp user.f90
+echo "done"
+
+echo "compiling chain"
+gfortran -c -O3 -fopenmp chain.f90
+echo "done"
+echo "compiling solver"
+gfortran -c -O3 -fopenmp solver.f90
+echo "done"
+echo "compiling analysis"
+gfortran -c -O3 -fopenmp analysis.f90
+echo "done"
+echo "compiling markov"
+gfortran -c -O3 -fopenmp markov.f90
+echo "done"
+echo "compiling main"
+gfortran -c -O3 -fopenmp main.f90
+echo "done"
+
+echo "linking all"
+gfortran -o main.noMPI.gnu.exe -O3 -fopenmp params.o parallel.o data.o user.o chain.o solver.o analysis.o markov.o main.o
+echo "done"
+
+echo "copying *.exe into TOOL/"
+cp main.noMPI.gnu.exe ../
+echo "cleaning"
+rm *.o
+rm *.mod
+rm *.exe
+echo "back to TOOL/ from src/"
+cd ..
+echo "ready!"

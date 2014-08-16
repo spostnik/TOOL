@@ -1,0 +1,321 @@
+TOOL
+
+Tolman-Oppenheimer-Volkov
+Observations
+OpenMP/MPI
+Liaison
+
+ABOUT
+
+Fortran 90 OpenMP & MPI code to calculate Equation of State
+of dense nuclear matter in Neutron Stars from Astronomical and Nuclear data.
+Uses normal TOV equations, causality of adiabatic speed of sound and
+stability against collapse into Black Hole.
+
+Bayesian analysis and Markov chain are used.
+Look at Figure in chainEOSexampleBW.pdf file.
+
+Moreover it computes stellar tidal Love number and moment of inertia (including fraction in crust).
+
+INSTALL
+
+ Unpack zip file (* is for the most current version, like '_D') inside your home directory (~)
+ 
+  unzip TOOL*
+
+ One needs Fortran compilers. For run with MPI Cray is used in example given.
+ For OMP/serial GNU gfortran is used. Use them or setup your own.
+ 
+ Main program can be compiled in TOOL directory by
+ 
+  ./compile.cray.main
+  
+ or
+ 
+  ./compile.gnu.noMPI
+  
+  consult these files for your own compiler.
+  
+  Executables with .exe will be produced.
+  For Cray example it is 'main.cray.exe'.
+  
+SETUP
+
+ Make separate directory for your project, for example
+ 
+  mkdir ~/my_prj
+  
+ Copy in there mkdirs.sh from TOOL/init
+ 
+  cp ~/TOOL/init/mkdirs.sh ~/my_prj
+  
+ and execute it
+ 
+  cd ~/my_prj
+  ./mkdirs.sh
+  
+ It makes directories:
+  
+   NS/ for output data files of stars
+   NSr/ for restart files from NS
+   MAP/ for Mass vs Radius probability map (every proc. writes its own)
+   BND/ for Equation Of State probability band (every proc. writes its own)
+   LOV/ for Love number vs Radius probability map (every proc. writes its own)
+   MOM/ for faction of moments of inertia of crust and total vs transition pressure probability map (every proc. writes its own)
+   MAX/ for configurations with maximum stable mass and maximum probability EOS as it was found.
+   USR/ output for user probability map
+   
+  Copy main .exe file 
+  
+   cp -avr ~/TOOL/*.exe ~/my_prj
+   
+  Copy directory DAT with EOSs and Nuclear data files
+
+   cp -avr ~/TOOL/DAT ~/my_prj
+   
+  Copy example knobs file too
+  
+   cp -avr ~/TOOL/knobs ~/my_prj
+   
+  This file ('knobs') contains parameters to control culculations.
+  
+  Copy example of run script from run/
+  
+   cp ~/TOOL/run/start.mpi ~/my_prj
+   cp ~/TOOL/run/mpi.cpu ~/my_prj
+   
+  for MPI run on TORQUE system
+  or local prallel run with OpenMP or serial run on single core
+  
+   cp ~/TOOL/run/start.loc ~/my_prj
+  
+RUN
+
+ Change parameters in 'knobs' file for your needs.
+ Run it by
+ 
+  ./start.mpi
+  
+ or
+ 
+  ./start.loc
+
+ The local one will produce file 'output' with details of the run.
+ As well as file 'log.dat' with basic info from proc. 0:
+ 
+  Step number,
+  Natural logarithm of probability of current chain,
+  Maximum mass of current chain,
+  ok=0 if knot wasn't moved and 1 otherwise,
+  Knot # that was moved,
+  Total maximum natural logarithm of probability from all proc.
+ 
+RESULTS
+
+ Results are updated in directories NS/, BND/, MAP/, LOV/, MAX/ and USR/.
+ 
+ NS/ has rows of properties of stars for given EOS chain state:
+    1st line 	- EOS file used to input seed EOS
+    2nd line:
+	1st 	- natural LOG of chain unnormilized probability
+	2nd	- reference pressure in km^-2
+	3rd	- seed point in LOG(pressure/p_reference)
+    3rd line	- number of stars in the table below
+    4th & rest	- starts the table:
+        1st column	- mass of a star in Solar masses
+        2nd		- radius in km.
+        3rd		- natural LOG(pressure/p_reference) at center
+        4th		- natural LOG(energy density/p_reference) at center
+        5th		- Love number lambda in km^5.
+        6th		- Moment of inertia in M_Sun*km^2
+        7th		- central barionic number density in fm^-3 (dimensionles for bare SQM star)
+        8th		- Binding Energy in M_Sun*c^2 (M_Sun*c^2*fm^3 for SQM star)
+ MAX/ has file with updated star with maximum probability EOS and maximum mass:
+	1st 	-	- step # when maximum was encountered
+	2nd 		- natural logarithm of maximum probability
+	3rd		- maximum mass in M_Sun
+	4rh 		- radius in km
+	5th 		- central pressure in MeV/fm^3
+	6th 		- central energy density in MeV/fm^3
+	7th 		- Love number in km^5
+	8th		- Moment of inertia in M_Sun*km^2
+	9th		- central number density in 1/fm^3
+	10th		- binding energy in M_Sun*c^2
+
+ BND/ has probability map for EOS:
+    1st line 	- EOS file used to input seed EOS & seed pressure in MeV/fm^3
+    2nd line:	
+	1st 	- natural LOG of maximum unnormilized probability obtained during the run
+	2nd	- pixel size in LOG(pressure)
+	3rd	- pixel size in LOG(density)
+	4th	- number of pixels in LOG(pressure)
+	5th	- number of pixels in LOG(density)
+	6th	- reference pressure in km^-2
+    3rd line:
+	1st	- lower boundary in LOG(pressure)
+	2nd	- upper boundary in LOG(pressure)
+	3rd	- lower boundary in LOG(density)
+	4th	- upper boundary in LOG(density)
+    4th & rest	- starts the table:
+        1st column	- position of pixel center in LOG(density)
+        2nd		- position of pixel center in LOG(pressure)
+        3rd		- pixel natural LOG(cumulative_probability)
+
+ MAP/ has probability map for Mass and Radius:
+    1st line 	- EOS file used to input seed EOS & seed pressure in MeV/fm^3 & chain step #
+    2nd line:	
+	1st 	- natural LOG of maximum unnormilized probability obtained during the run
+	2nd	- pixel size in mass [M_Sun]
+	3rd	- pixel size in radius [km]
+	4th	- number of pixels in mass
+	5th	- number of pixels in radius
+    3rd line:
+	1st	- lower boundary in mass [M_Sun]
+	2nd	- upper boundary in mass
+	3rd	- lower boundary in radius [km]
+	4th	- upper boundary in radius
+    4th & rest	- starts the table:
+        1st column	- position of pixel center in radius [km]
+        2nd		- position of pixel center in mass [M_Sun]
+        3rd		- pixel natural LOG(cumulative_probability)
+
+ LOV/ has probability map for Love number and Radius:
+    1st line 	- EOS file used to input seed EOS & surface jump (0 or 1) & chain step #
+    2nd line:	
+	1st 	- natural LOG of maximum unnormilized probability obtained during the run
+	2nd	- pixel size in Love number [km^5]
+	3rd	- pixel size in radius [km]
+	4th	- number of pixels in Love number
+	5th	- number of pixels in radius
+    3rd line:
+	1st	- lower boundary in Love number [km^5]
+	2nd	- upper boundary in Love number
+	3rd	- lower boundary in radius [km]
+	4th	- upper boundary in radius
+    4th & rest	- starts the table:
+        1st column	- position of pixel center in Love number [km^5]
+        2nd		- position of pixel center in radius [km]
+        3rd		- pixel natural LOG(cumulative_probability)
+
+ MOM/ has probability map for fraction of crust moment of inertia vs transition pressure:
+    1st line 	- EOS file used to input seed EOS, seed pressure in MeV/fm^3, chain step #
+    2nd line:	
+	1st 	- natural LOG of maximum unnormilized probability obtained during the run
+	2nd	- pixel size in transition pressure [MeV/fm^3]
+	3rd	- pixel size in fracton of crust moment of inertia
+	4th	- number of pixels in transition pressure
+	5th	- number of pixels in fracton of crust moment of inertia
+	6th	- reference pressure in km^-2
+    3rd line:
+	1st	- lower boundary in the pressure
+	2nd	- upper boundary in the pressure
+	3rd	- lower boundary in the fraction
+	4th	- upper boundary in the fraction
+    4th & rest	- starts the table:
+        1st column	- position of pixel center in pressure
+        2nd		- position of pixel center in fraction
+        3rd		- pixel natural LOG(cumulative_probability)
+
+RESTART
+
+ Copy restart files from NS/ and check name part before the '.' matching the step used for restart.
+ Format it as '010000.000001' etc.
+ 
+ Also new run can be done with input maps aleady present at directories,
+ see knobs: step0, lnPall0, add***
+ 
+KNOBS
+
+ Short info about 'knobs' in corresponding file (switches: F - false, T - true):
+ 
+&init
+ withMPI=F,		- switch: if run is MPI (distributed) or local (shared OpenMP/serial)
+ lnPmin=-1.0E+5,	- log(0) or numerical -infinity (zero probability to start with)
+ refden=0.08,		- reference density to split b/w CRUST and CORE knots [fm^-3]
+			    reference pressure P_ref is calculted from ideal Fermi gas of neutrons
+ xseed=-4,		- seed point for pressure xseed=ln(P_seed/P_ref), set it to 0 for bare SQM surface
+ xMax=9,		- maximum pressure P_max of the chain (extrapolated from the last EOS point as dP/drho=c^2)
+ linkdots=10,		- number of points used in numerical integration b/w linkpoints or dots of input EOS
+			    it allows to control presision vs speed of TOV or Love solutions
+ Love=T,		- if Love number lambda to be calculated. Units used are [km^5]
+			  output is updated in LOV/ directory
+ MomI=F,		- switch for calculatong stellar moment of inertia
+ MomQ=F			- switch for calculatong stellar quadrupole moment (... in progress)
+ nDen=F,		- switch for calculatong stellar central number density
+ BE=F,			- switch for calculatong stellar Binding Energy
+/
+&Mchain
+ CRUSTknots=5,		- knots in CRUST region (P_seed<P<P_ref); 2,3,...,CRUSTknots+1
+ COREknots=5,		- knots in CORE region (P_ref<P<P_max); CRUSTknots+3,3,...,COREknots+CRUSTknots+3
+ MINknot=2,		- only knot>=MINknot are changed, the rest are frozen, set it to 1 for bare SQM surface
+ linkpoints=50,		- number of stars inb/w knots of the chain
+ djump=0.5,		- size of a random jump for knot in ln(rho*c^2/P_ref) direction
+ cut=4,			- how many "sigmas" chain can go away from the maximum one
+ lnPall0=0,		- initial max ln of probability for input maps from file, if 0 then lnPmax of seed EOS is used
+ step0=0,		- initial step index
+ stepMax=20,		- maximum number of steps
+ restart=F,		- if to restart, must have files in BND/, MAP/ and NSr/ (as well as LOV/ if Love=T)
+ step=1000		- restart step, names in NSr must start with it, like: #step.#proc ('001000.000000')
+/
+&maps
+ Nx=100,		- grid in x for EOS
+ xL=-4,			- its left boundary
+ xR=9,			- its right boundary
+ Ny=100,		- grid in y for EOS; y=ln(rho*c^2/P_ref)
+ yD=2,			- its down boundary
+ yU=9,			- its up boundary
+ NM=100,		- grid for Mass [M_Sun]
+ ML=0.0,
+ MR=3.0,
+ NR=100,		- grid for Radius [km]
+ RU=25,
+ RD=0,
+ Nfrc=100,		- grid for fraction of moment of inertia of crust to total one
+ frcD=0,
+ frcU=1,
+ Ntrn=100,		- grid for transition pressure from crust to core [MeV/fm^3]
+ trnL=0,
+ trnR=1
+/
+&input
+ fileEOS='sly4.dat',	- input model EOS from DAT/ directory
+ dotsEOS=152,		- # of points to use
+ units=1,		- its units; 0 - M_Sun*km^-3, 1 - g/cm^3 & dyn/cm^2
+ addBAND=F,		- switches for loading maps from files in corresponding directories
+ addMAP=F,
+ addLOVE=F,
+ addMOM=F,
+ addUSR=F
+/
+&output
+ writeevery=5,		- approx gap in steps b/w saving EOS and MR data into BND/ and MAP/ (and LOV/)
+ writeNS=5		- approx gap in steps b/w saving stars data into NS/, if 0 only new max cases are saved
+/
+&Odata			- input data from astronomy ('s' for +/- one sigma error)
+			    modify analysis.f90,knobs,main.f90,data.f90 files for more inputs
+ MmaxNS=2.0,		- general maximum mass that must be reached by EOS
+ M1maxNS=1.97,sM1maxNS=0.04,
+ M2maxNS=2.01,sM2maxNS=0.04,
+ M3maxNS=2.44,sM3maxNS=0.27,
+ RsNS=9.1,sRsNS=1.5, MmnNS=0.3,			- Guillot radius and mass boundary
+ M1=0,sM1=0.09,R1=0,sR1=0.8,			- Nice star with M&R, if M1=0 and/or R1=0 then ignored
+ R1inf=14.6,sR1inf=1,				- R infinities and redshifts
+ R2inf=16.1,sR2inf=1.8,z2=0.37,sz2=0.03,
+ LoveLimit=4.0D-4, Mlimit=0.5,			- Love number limit from LIGO for masses above Mlimit[to be found]
+ glitchAmax=0.07, glitchRmax=25, glitchPmx=1.0	- glitches info from Vela and Crab
+/
+&Ndata			- input data from nuclear physics
+ NucPh=F		- if there is nuclear data to be used
+ fileEDF='UNEDF1.map'	- file with probability map of EoS band from nuclear Energy Density Functional, 
+			    for format see the file included in DAT/ directory
+/
+ 
+FEEDBACK
+
+ Please write comments, questions and suggestions to:
+ 
+  postsergey@gmail.com
+ 
+ENJOY!
+
+ Sergey Postnikov

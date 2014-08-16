@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#runs main OMP or serial code on local host
+
+date
+time ./main.noMPI.gnu.exe > output
+date

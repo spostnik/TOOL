@@ -1,0 +1,131 @@
+No MPI, single process:     1
+           0 : reading knobs
+ Love number lambda will be calculated, output units km^5
+ Moment of inertia for slow spin will be calculated, output units M_Sun*km^2
+ Binding Energy will be calculated, output units M_Sun*c^2
+ Chain: crust knots =            7 , core knots =            7 , points per link =         100
+ Movable knots >=            2
+ Reference energy density from neutron Fermi gas pressure   1.55965885381704692E-006  km^-2 (   1.1782570475311982       MeV/fm^3)
+ Loading           98  EOS data points from pal32.dat                                         
+  units=           0  pressure and density in M_Sun km^-3
+ Sorting input EOS according to pressure
+ Number of density jumps:            0
+ xMin=  -58.190241101544359     
+ xEOSmx=   9.4433183028258743     
+ Loading data from UNEDFnb_10k.map                                   
+ EDF used is UNEDFnb
+ EDF map resolution is   5.99999999999999978E-002  1.00000000000000002E-002         100         100
+ EDF map boundaries are   -4.1640362681585348        1.8359637318414657        4.0359637318414654        5.0359637318414654     
+ EDF: assumed units are ln(MeV/fm^3)
+ NSchain(1,:)=  0.58177758673513991        703.00289820069520       -5.0000000000000000        1.4730803659881055        892074022574.83728        13466.388818143138       5.46334484274661140E-003 -0.28409831940538272     
+           0 : Seed EOS for n<=  5.79962052339997886E-003  ln(rhoseed/rhos)<=  -5.0000000000000000       yseed=   1.4730803659881055       iseed=          61
+           0 : Seed star M=  0.58177758673513991      Msol R=   703.00289820069520      km  I=   13466.388818143138       Msol*km^2
+ Init. random seed
+ Init. chain
+ Init. band
+ Init. map
+ Init. Love map
+ Init. I map
+           0 : Init. chain from seed EoS
+           0 : lnPn= -100000.000000000000     
+User map init. 
+           0 : xchain=  -5.0000000000000000       -4.3750000000000000       -3.7500000000000000       -3.1250000000000000       -2.5000000000000000       -1.8750000000000000       -1.2500000000000000      -0.62500000000000000        0.0000000000000000        1.1804147878532343        2.3608295757064686        3.5412443635597031        4.7216591514129371        5.9020739392661712        7.0824887271194061        8.2629035149726402        9.4433183028258743     
+           0 : ychain=   1.4730803659881055        2.0231234271280751        2.4501812368710660        2.8629383652673623        3.2724743884007985        3.6739444806731143        4.0566153269697143        4.2576189746494153        4.3943456327657779        4.7857721161799311        5.2553770368044566        5.7818201145167203        6.3464693105362420        6.9781477482411685        7.7197440581866053        8.5787956974412225        9.5593493670667939     
+  start NS :030405.566
+  end NS :030406.265, took            0 h            0 m   0.69900000000052387      s 
+           0 : err=           0
+  Bayesian start :030406.265
+  Bayesian end :030406.265, took            0 h            0 m    0.0000000000000000      s 
+           0 : lnPmax= -100000.000000000000     
+           0 : writing 000000.000000
+           0 : writing max.000000   
+ **********Step=           1 ******************************
+           0 : step=           1  err=           0
+           0 : lnPmax= -100000.000000000000     
+           0 : step=           1  maximum case found and saved lnPmax= -100000.000000000000     
+           0 : writing 000001.000000
+  lnPall= -100000.000000000000     
+           0 : writing max.000000   
+ **********Step=           2 ******************************
+           0 : step=           2  err=           0
+           0 : lnPmax= -100000.000000000000     
+           0 : step=           2  maximum case found and saved lnPmax= -100000.000000000000     
+           0 : writing 000002.000000
+  lnPall= -100000.000000000000     
+           0 : writing max.000000   
+ **********Step=           3 ******************************
+           0 : step=           3  err=           0
+           0 : lnPmax= -100000.000000000000     
+           0 : step=           3  maximum case found and saved lnPmax= -100000.000000000000     
+           0 : writing 000003.000000
+  lnPall= -100000.000000000000     
+           0 : writing max.000000   
+ **********Step=           4 ******************************
+           0 : step=           4  err=           0
+           0 : lnPmax= -100000.000000000000     
+           0 : step=           4  maximum case found and saved lnPmax= -100000.000000000000     
+           0 : writing 000004.000000
+  lnPall= -100000.000000000000     
+           0 : writing max.000000   
+ **********Step=           5 ******************************
+           0 : step=           5  err=           0
+           0 : lnPmax= -100000.000000000000     
+           0 : step=           5  maximum case found and saved lnPmax= -100000.000000000000     
+           0 : writing 000005.000000
+  lnPall= -100000.000000000000     
+           0 : writing max.000000   
+ **********Step=           6 ******************************
+           0 : step=           6  err=           0
+           0 : lnPmax= -100000.000000000000     
+           0 : step=           6  maximum case found and saved lnPmax= -100000.000000000000     
+           0 : writing 000006.000000
+  lnPall= -100000.000000000000     
+           0 : writing max.000000   
+           0 : writing band
+           0 : writing map
+           0 : writing Love map
+           0 : writing I map
+           0 : writing map
+ **********Step=           7 ******************************
+           0 : step=           7  err=           0
+           0 : lnPmax= -100000.000000000000     
+           0 : step=           7  maximum case found and saved lnPmax= -100000.000000000000     
+           0 : writing 000007.000000
+  lnPall= -100000.000000000000     
+           0 : writing max.000000   
+ **********Step=           8 ******************************
+           0 : step=           8  err=           0
+           0 : lnPmax= -100000.000000000000     
+           0 : step=           8  maximum case found and saved lnPmax= -100000.000000000000     
+           0 : writing 000008.000000
+  lnPall= -100000.000000000000     
+           0 : writing max.000000   
+ **********Step=           9 ******************************
+           0 : step=           9  err=           0
+           0 : lnPmax= -100000.000000000000     
+           0 : step=           9  maximum case found and saved lnPmax= -100000.000000000000     
+           0 : writing 000009.000000
+  lnPall= -100000.000000000000     
+           0 : writing max.000000   
+ **********Step=          10 ******************************
+           0 : step=          10  err=           0
+           0 : lnPmax= -100000.000000000000     
+           0 : step=          10  maximum case found and saved lnPmax= -100000.000000000000     
+           0 : writing 000010.000000
+  lnPall= -100000.000000000000     
+           0 : writing max.000000   
+ **********Step=          11 ******************************
+           0 : step=          11  err=           0
+           0 : lnPmax= -100000.000000000000     
+           0 : step=          11  maximum case found and saved lnPmax= -100000.000000000000     
+           0 : writing 000011.000000
+  lnPall= -100000.000000000000     
+           0 : writing max.000000   
+           0 : writing band
+           0 : writing map
+           0 : writing Love map
+           0 : writing I map
+           0 : writing map
+           0 : writing 000011.000000
+ Killing chain
+User map kill 

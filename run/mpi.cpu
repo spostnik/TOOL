@@ -1,0 +1,13 @@
+#!/bin/bash
+  #PBS -l nodes=5:ppn=32
+  #PBS -l walltime=03:00:00
+  #PBS -N NSeosMR
+  #PBS -q cpu
+  #PBS -V
+  
+  cd $PBS_O_WORKDIR
+  export OMP_NUM_THREADS=16
+  
+  date
+  time aprun -N 2 -d 16 -n 10 ./main.cray.exe
+  date

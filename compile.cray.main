@@ -1,0 +1,49 @@
+#!/bin/bash
+
+echo "going into scr/"
+cd src
+
+echo "compiling params"
+ftn -O3 -c params.f90
+echo "done"
+echo "compiling parallel"
+ftn -O3 -c parallel.f90
+echo "done"
+
+echo "compiling data"
+ftn -O3 -c data.f90
+echo "done"
+
+echo "compiling user"
+ftn -O3 -c user.f90
+echo "done"
+
+echo "compiling chain"
+ftn -O3 -c chain.f90
+echo "done"
+echo "compiling solver"
+ftn -O3 -c solver.f90
+echo "done"
+
+echo "compiling analysis"
+ftn -O3 -c analysis.f90
+echo "done"
+echo "compiling markov"
+ftn -O3 -c markov.f90
+echo "done"
+
+echo "compiling main"
+ftn -O3 -c main.f90
+echo "done"
+
+echo "linking all"
+ftn -O3 -o main.cray.exe params.o parallel.o data.o user.o chain.o solver.o analysis.o markov.o main.o
+echo "done"
+
+echo "copying *.exe to TOOL/"
+cp main.cray.exe ../
+echo "cleaning up"
+rm *.o
+rm *.mod
+rm *.exe
+cd ..
